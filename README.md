@@ -167,17 +167,19 @@ Show the project tree and README briefly, then summarize that the portal combine
 
 ## Production hosting with Render
 
-The repository includes `render.yaml` for deploying the API, PostgreSQL database, and Vite frontend as a Render Blueprint.
+The repository includes `render.yaml` for deploying the API and Vite frontend as a Render Blueprint. To avoid a paid Render database, use a free external PostgreSQL database from Supabase or Neon.
 
 1. In Render, select **New > Blueprint** and connect `harsenth12/custom-employee-portal`.
-2. Review the services and create the Blueprint. The database plan in `render.yaml` is `basic-256mb`; change it before creating the Blueprint if a different plan is required.
-3. Set these API environment variables in the backend service:
+2. Create a free PostgreSQL project in Supabase or Neon and note its host, port, database name, user, and password.
+3. Review the two free Render services and create the Blueprint.
+4. Set these API environment variables in the backend service:
 	- `FRONTEND_URL`: the deployed frontend URL
+	- `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, and `DB_PASSWORD`: the external PostgreSQL values
 	- `ZOHO_CLIENT_ID`, `ZOHO_CLIENT_SECRET`, and `ZOHO_REFRESH_TOKEN`
 	- `ZOHO_REDIRECT_URI`: `https://<api-host>/api/zoho/callback`
-4. Set `VITE_API_URL` in the frontend service to the deployed API URL, without a trailing `/api`.
-5. Add the same `ZOHO_REDIRECT_URI` to the Zoho OAuth client configuration.
-6. After the database is available, run these commands once from the backend service shell or a local terminal configured with the production database variables:
+5. Set `VITE_API_URL` in the frontend service to the deployed API URL, without a trailing `/api`.
+6. Add the same `ZOHO_REDIRECT_URI` to the Zoho OAuth client configuration.
+7. After the database is available, run these commands once from the backend service shell or a local terminal configured with the production database variables:
 
 ```bash
 npm run db:init
