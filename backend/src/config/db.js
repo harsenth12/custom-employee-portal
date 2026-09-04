@@ -6,7 +6,10 @@ const pool = new Pool({
     port: config.database.port,
     database: config.database.name,
     user: config.database.user,
-    password: config.database.password
+    password: config.database.password,
+    ssl: process.env.NODE_ENV === "production"
+        ? { rejectUnauthorized: false }
+        : false
 });
 
 pool.on("connect", () => {
