@@ -1,0 +1,15 @@
+# Local secrets
+backend/.env
+*.pem
+*.key
+
+# Dependencies and build output
+backend/node_modules/
+frontend/node_modules/
+frontend/dist/
+
+# Logs and local editor files
+*.log
+.DS_Store
+.env
+.vscode/
