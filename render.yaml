@@ -1,3 +1,9 @@
+databases:
+  - name: employee-portal-db
+    databaseName: employee_portal
+    user: employee_portal
+    plan: basic-256mb
+
 services:
   - type: web
     name: custom-employee-portal-api
@@ -17,15 +23,25 @@ services:
       - key: JWT_EXPIRES_IN
         value: 8h
       - key: DB_HOST
-        sync: false
+        fromDatabase:
+          name: employee-portal-db
+          property: host
       - key: DB_PORT
-        sync: false
+        fromDatabase:
+          name: employee-portal-db
+          property: port
       - key: DB_NAME
-        sync: false
+        fromDatabase:
+          name: employee-portal-db
+          property: database
       - key: DB_USER
-        sync: false
+        fromDatabase:
+          name: employee-portal-db
+          property: user
       - key: DB_PASSWORD
-        sync: false
+        fromDatabase:
+          name: employee-portal-db
+          property: password
       - key: ZOHO_CLIENT_ID
         sync: false
       - key: ZOHO_CLIENT_SECRET
